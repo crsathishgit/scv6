@@ -54,6 +54,8 @@ def listAllSourceCSVFiles():
     global sourceCSVfileName 
     global sourceCSVfileNameNoExt 
     files = glob.glob(f'{sourceCSVsFolder}/*.csv')
+    print("(((files)))")
+    print(files)
     sourceCSVfileName = files[0]
     print("sourceCSVfileName------------->")
     print(sourceCSVfileName)
@@ -172,10 +174,12 @@ def preprocess_segregate_error_rows(columns, columnnames):
                 problem_rows.append(line)
             except: 
               clean_rows.append(scrutinizeCleanLine(line, columnnames))
-
-        writeRowsIntoCSV(clean_rows, sourceCSVsFolder + f'/clean_rows_{sourceCSVfileNameNoExt}_preprocessed.csv')
+        print("sourceCSVfileNameNoExt  =========>")
+        print(sourceCSVfileNameNoExt)
+        print(errorFolderPath)
+        
+        writeRowsIntoCSV(clean_rows, '.rpt/tlog/.preprocessed/load_date=2022-10-17' + f'/clean_rows_{sourceCSVfileNameNoExt}_preprocessed.csv')
         writeRowsIntoCSV(problem_rows, errorFolderPath + "/" + f'problem_rows_{sourceCSVfileNameNoExt}_preprocessed.csv')
-
 
 
 def do_validation(columnsFromJSON):
@@ -188,12 +192,12 @@ def do_validation(columnsFromJSON):
     print("<<<<<<===================")
     # # read the data
     try:
-      data = pd.read_csv(sourceCSVsFolder + f'/clean_rows_{sourceCSVfileNameNoExt}_preprocessed.csv', sep=delimiter  , engine='python')
+      data = pd.read_csv('.rpt/tlog/.preprocessed/load_date=2022-10-17' + f'/clean_rows_{sourceCSVfileNameNoExt}_preprocessed.csv', sep=delimiter  , engine='python')
     except  BaseException as e:
       print(f'CSV error........................{str(e)}')
       sys.exit()
     # # define validation schema
-    
+  
 
     # # apply validation
     errors = schema.validate(data)
