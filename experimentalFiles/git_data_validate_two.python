@@ -1,0 +1,171 @@
+import csv
+from operator import truediv
+import pandas as pd
+import pandas_schema
+from pandas_schema import Column
+from pandas_schema.validation import CustomElementValidation
+import numpy as np
+from decimal import *
+import time
+import tracemalloc
+
+def DoesItContainNoneAsValue(keys, line):
+  for key in keys:
+      if(line[key] == None):
+        return True
+  return False
+
+def constructHeader(keys):
+    header = ''
+    lastElement = keys[-1]
+    for key in keys:
+      if(key == None):
+        header += 'None'
+      else:
+        if(key == lastElement):
+          header += key 
+        else:
+          header += key + ","
+    return header
+
+def constructRow(row):
+  keys = list(row.keys())
+  lastElement = keys[-1]
+  strRow = ''
+  for key in keys:
+    if(key == lastElement):
+      strRow += str(row[key])
+    else:
+      strRow += str(row[key]) + ","
+  return strRow
+
+def writeRowsIntoCSV(rows, filename):
+    writtenHeader = False
+    with open(filename, 'w') as the_file:
+      for row in rows:
+        rowKeys = list(row.keys())
+        print('rowKeys--->')
+        print(rowKeys)
+        header = constructHeader(rowKeys)
+        if(writtenHeader == False):
+          writtenHeader = True
+          the_file.write(header + "\n")
+        the_file.write(constructRow(row) + "\n")
+
+def preprocess_segregate_error_rows(columns):
+    print("preprocess_segregate_error_rows....")
+    with open('gitdata.csv', 'r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        clean_rows = []
+        problem_rows = []
+        for line in csv_reader:
+            try:
+              keys = list(line.keys())
+              print(keys)
+              numberOfColumns = len(keys)
+              print(line[keys[0]])
+              if(numberOfColumns == columns):
+                result = DoesItContainNoneAsValue(keys, line)
+                if(result == True):
+                  problem_rows.append(line)
+                else:
+                  clean_rows.append(line)
+              else:
+                problem_rows.append(line)
+              print(numberOfColumns)
+            except: 
+              clean_rows.append(line)
+
+        print("# of clean_rows") 
+        print(clean_rows) 
+        print("----------------------------------------------------")
+        # cleanRowKeys = list(clean_rows.keys())
+        # print('cleanRowKeys')
+        # print(cleanRowKeys)
+
+        writeRowsIntoCSV(clean_rows, 'clean_rows.csv')
+        print("----------------------------------------------------")
+        print("# of problem_rows")   
+        print(len(problem_rows))
+        print(problem_rows)
+        # problemRowKeys = list(problem_rows.keys())
+        # print('problemRowKeys')
+        # print(problemRowKeys)
+        writeRowsIntoCSV(problem_rows, 'problem_rows.csv')
+
+
+
+def check_decimal(dec):
+    try:
+        Decimal(dec)
+    except InvalidOperation:
+        return False
+    return True
+
+
+def check_int(num):
+    try:
+        int(num)
+    except ValueError:
+        return False
+    return True
+
+def checkNone(n):
+    if(np.isnan(n)):
+        return False
+    return True
+
+
+# def extraColumn(e):
+#     return False
+
+def do_validation():
+    print("--------------->>>>>>")
+    preprocess_segregate_error_rows(6)
+    print("<<<<<<---------------")
+    # read the data
+    data = pd.read_csv('clean_rows.csv')
+
+    # define validation elements
+    decimal_validation = [CustomElementValidation(lambda d: check_decimal(d), 'decimal_validation: is not decimal')]
+    int_validation = [CustomElementValidation(lambda i: check_int(i), 'int_validation: is not integer')]
+    null_validation = [CustomElementValidation(lambda d: d is not np.nan, 'null_validation: this field cannot be null')]
+    none_validation = [CustomElementValidation(lambda n:  checkNone(n), 'checkNone: this field cannot be null')]
+    # extra_column_validation = [CustomElementValidation(lambda e:  extraColumn(e), 'this field cannot be null')]
+
+    # define validation schema
+    schema = pandas_schema.Schema([
+            Column('Experiment ', null_validation),
+            Column('Virus ', null_validation),
+            Column('Cell', null_validation),
+            Column('MOI', int_validation  + none_validation),
+            Column('hpi', decimal_validation),
+            Column('Titer', decimal_validation + none_validation),
+            ])
+
+    # apply validation
+    errors = schema.validate(data)
+    errors_index_rows = [e.row for e in errors]
+    data_clean = data.drop(index=errors_index_rows)
+
+    # save data
+    pd.DataFrame({'col':errors}).to_csv('git_errors.csv')
+    print("Number of clean rows:")
+    print(len(data_clean))
+
+    print("Number of dirty rows:")
+    print(len(errors_index_rows))
+    data_clean.to_csv('git_clean_data.csv')
+
+if __name__ == '__main__':
+    # do_columns_validation()
+    print("------------------")
+    ts = time.time()
+    print(f'Start Time {ts}! ')
+    tracemalloc.start()
+    do_validation()
+    print("Memory usage: ")
+    print(tracemalloc.get_traced_memory())
+    tracemalloc.stop()
+    ts = time.time()
+    print(f'End Time {ts}! ')

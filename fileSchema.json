@@ -1,0 +1,99 @@
+{
+  "fileType": "csv",
+  "fileSeparator":",",
+  "fileName": "./csvsource/weatherSubsetPipe.csv",
+  "fileHeaderRequired":true,
+  "insertHeaderIfNotAvailable":true,
+  "entirebatchRejection":false,
+  "fileHeaders":[
+      {
+        "columnName":"MinimumTemp",
+        "datatype":"integer"
+      },
+      {
+        "columnName": "MaximumTemp",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "Rainfall",
+        "datatype": "integer" 
+      },
+      {
+        "columnName": "Evaporation",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "Sunshine",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "WindGustDir",
+        "datatype": "string"
+      },
+      {
+        "columnName": "WindGustSpeed",
+        "datatype": "integer" 
+      },
+      {
+        "columnName": "WindDir9am",
+        "datatype": "string"
+      },
+      {
+        "columnName": "WindDir3pm",
+        "datatype": "string"
+      },
+      {
+        "columnName": "WindSpeed9am",
+        "datatype": "integer" 
+      },
+      {
+        "columnName": "WindSpeed3pm",
+        "datatype": "integer" 
+      },
+      {
+        "columnName": "Humidity9am",
+        "datatype": "integer" 
+      },
+      {
+        "columnName": "Humidity3pm",
+        "datatype": "integer" 
+      },
+      {
+        "columnName": "Pressure9am",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "Pressure3pm",
+        "datatype": "integer"  
+      },
+      {
+        "columnName": "Cloud9am",
+        "datatype": "integer"  
+      },
+      {
+        "columnName": "Cloud3pm",
+        "datatype": "integer"  
+      },
+      {
+        "columnName": "Temp9am",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "Temp3pm",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "RainToday",
+        "datatype": "string"  
+      },
+      {
+        "columnName": "RISK_MM",
+        "datatype": "decimal"
+      },
+      {
+        "columnName": "RainTomorrow",
+        "datatype": "string"  
+      }
+    ]
+}
+

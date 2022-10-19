@@ -1,0 +1,97 @@
+{
+  "fileType": "csv",
+  "fileSeparator":",",
+  "folderpath": "./.rpt/tlog/load_date=2022-10-17",
+  "errorFolderPath": ".rpt/tlog/.errors/load_date=2022-10-17",
+  "fileHeaderRequired":true,
+  "insertHeaderIfNotAvailable":true,
+  "entirebatchRejection":false,
+  "fileHeaders":[
+      {
+        "columnName":"id",
+        "datatype":"integer",
+        "mandatory": true
+      },
+      {
+        "columnName": "updated",
+        "datatype": "date",
+        "mandatory": true
+      },
+      {
+        "columnName": "confirmed",
+        "datatype": "integer",
+        "mandatory": false
+      },
+      {
+        "columnName": "confirmed_change",
+        "datatype": "integer",
+        "mandatory": false
+      },
+      {
+        "columnName": "deaths",
+        "datatype": "integer",
+        "mandatory": false
+      },
+      {
+        "columnName": "deaths_change",
+        "datatype": "integer",
+        "mandatory": false
+      },
+      {
+        "columnName": "recovered",
+        "datatype": "integer",
+        "mandatory": false 
+      },
+      {
+        "columnName": "recovered_change",
+        "datatype": "integer",
+        "mandatory": false 
+      },
+      {
+        "columnName": "latitude",
+        "datatype": "string",
+        "mandatory": false
+      },
+      {
+        "columnName": "longitude",
+        "datatype": "string",
+        "mandatory": false
+      },
+      {
+        "columnName": "iso2",
+        "datatype": "string",
+        "mandatory": false
+      },      
+      {
+        "columnName": "iso3",
+        "datatype": "string",
+        "mandatory": false
+      },
+      {
+        "columnName": "country_region",
+        "datatype": "string",
+        "mandatory": false
+      }, 
+      {
+        "columnName": "admin_region_1",
+        "datatype": "string",
+        "mandatory": false
+      },
+      {
+        "columnName": "iso_subdivision",
+        "datatype": "string",
+        "mandatory": false
+      },   
+      {
+        "columnName": "admin_region_2",
+        "datatype": "string",
+        "mandatory": false
+      },
+      {
+        "columnName": "load_time",
+        "datatype": "string",
+        "mandatory": false
+      }    
+  ]
+}
+

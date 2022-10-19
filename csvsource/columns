@@ -1,0 +1,114 @@
+MinTemp,           8,
+MaxTemp,        24.3,
+Rainfall,          0,
+Evaporation,     3.4,
+Sunshine,        6.3,
+WindGustDir,      NW,
+WindGustSpeed,    30,
+WindDir9am,       SW,
+WindDir3pm,       NW,
+WindSpeed9am,      6,
+WindSpeed3pm,     20,
+Humidity9am,      68,
+Humidity3pm,      29,
+Pressure9am,  1019.7,
+Pressure3pm,    1015,
+Cloud9am,          7,
+Cloud3pm,          7,
+Temp9am,        14.4,
+Temp3pm,        23.6,
+RainToday,        No,
+RISK_MM,         3.6,
+RainTomorrow     Yes
+
+
+weatherCsvSchema = [
+  {
+    "columnName": 'MinTemp',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'MaxTemp',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'Rainfall',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Evaporation',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'Sunshine',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'WindGustDir',
+    "validations": none_validation
+  },
+  {
+    "columnName": 'WindGustSpeed',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'WindDir9am',
+    "validations": none_validation
+  },
+  {
+    "columnName": 'WindDir3pm',
+    "validations": none_validation
+  },
+  {
+    "columnName": 'WindSpeed9am',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'WindSpeed3pm',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Humidity9am',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Humidity3pm',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Pressure9am',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'Pressure3pm',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Cloud9am',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Cloud3pm',
+    "validations": int_validation + none_validation
+  },
+  {
+    "columnName": 'Temp9am',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'Temp3pm',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'RainToday',
+    "validations": none_validation
+  },
+  {
+    "columnName": 'RISK_MM',
+    "validations": decimal_validation
+  },
+  {
+    "columnName": 'RainTomorrow',
+    "validations": none_validation
+  }
+]
